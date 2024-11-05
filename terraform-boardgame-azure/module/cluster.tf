@@ -76,24 +76,6 @@ resource "azurerm_subnet" "postgresql_flexible_server_subnet" {
   }
 }
 
-# Create Subnet for MySQL Flexible servers
-resource "azurerm_subnet" "mysql_flexible_server_subnet" {
-  name                 = "${var.prefix}-mysql-flexible-server-subnet"
-  resource_group_name  = azurerm_resource_group.aks_rg.name
-  virtual_network_name = azurerm_virtual_network.aks_vnet.name
-  address_prefixes     = ["10.228.0.0/16"]
-  service_endpoints    = ["Microsoft.Storage"]
-  delegation {
-    name = "mysql-delegation"
-    service_delegation {
-      name = "Microsoft.DBforMySQL/flexibleServers"
-      actions = [
-        "Microsoft.Network/virtualNetworks/subnets/join/action",
-      ]
-    }
-  }
-}
-
 # Create Public IP for Application Gateway
 resource "azurerm_public_ip" "appgtw_public_ip" {
   name                = "${var.prefix}-ip"
