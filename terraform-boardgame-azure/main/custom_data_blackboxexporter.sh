@@ -26,6 +26,8 @@ modules:
       valid_http_versions: ["HTTP/1.1", "HTTP/2.0"]
       valid_status_codes: []  # Defaults to 2xx
       method: GET
+      tls_config:
+        insecure_skip_verify: true
 EOF
 
 cat > /etc/systemd/system/blackbox_exporter.service <<EOT
